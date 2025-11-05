@@ -8,8 +8,11 @@ public class CorreoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CorreoApplication.class, args);
+		System.out.println("✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅");
+		System.out.println("Bienvenido al microservicio de envío de correos");
 		System.out.println("Microservicio de envío de correos iniciado correctamente.");
 		
+
 	}
 
 }

@@ -15,7 +15,7 @@ type FachadaAlmacenamiento struct {
 
 // Constructor de la fachada
 func NuevaFachadaAlmacenamiento() *FachadaAlmacenamiento {
-	fmt.Println("🔧 Inicializando fachada de almacenamiento...")
+	fmt.Println("Inicializando fachada de almacenamiento...")
 
 	repo := capaaccesoadatos.GetRepositorioCanciones()
 
@@ -41,8 +41,6 @@ func (thisF *FachadaAlmacenamiento) GuardarCancion(objCancion dtos.CancionAlmace
 		Duracion:        objCancion.Duracion,
 		Mensaje:         "Nueva cancion almacenada: " + objCancion.Titulo + " de " + objCancion.Artista,
 	})
-	// Guardar archivo y registro en memoria
-	// delegar en el repositorio
 
 	return thisF.repo.GuardarCancion(objCancion.Titulo, objCancion.Genero, objCancion.Artista, objCancion.Idioma, objCancion.AnioLanzamiento, objCancion.Duracion, data)
 }

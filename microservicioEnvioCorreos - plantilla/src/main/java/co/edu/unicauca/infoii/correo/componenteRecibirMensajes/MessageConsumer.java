@@ -18,7 +18,8 @@ public class MessageConsumer {
         System.out.println("Título: " + objClienteCreado.getTitulo());
         System.out.println("Artista: " + objClienteCreado.getArtista());
         System.out.println("Género: " + objClienteCreado.getGenero());
-        System.out.println("===================================================");
+        
+        System.out.println("***************************************");
     }
 }
     
