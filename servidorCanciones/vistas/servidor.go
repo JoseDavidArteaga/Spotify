@@ -1,0 +1,46 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"net"
+	"net/http"
+
+	"google.golang.org/grpc"
+	capaControladoresCancion "servidor.local/grpc-servidorCancion/dominio/cancion/controladores"
+	pb "servidor.local/grpc-servidorCancion/serviciosCancion"
+)
+
+func main() {
+
+	go iniciarSevidorREST()
+
+	port := ":50051"
+	lis, err := net.Listen("tcp", port)
+	if err != nil {
+		log.Fatalf("Error al escuchar: %v", err)
+	}
+
+	grpcServer := grpc.NewServer()
+	pb.RegisterServiciosCancionesServer(grpcServer, &capaControladoresCancion.ControladorCanciones{})
+	fmt.Printf("Servidor de Canciones escuchando en %s...\n", port)
+
+	if err := grpcServer.Serve(lis); err != nil {
+		log.Fatalf("Error al servir: %v", err)
+	}
+
+}
+
+// iniciarSevidorREST inicia un servidor REST para manejar solicitudes HTTP relacionadas con el almacenamiento de canciones.
+func iniciarSevidorREST() {
+	ctrl := capaControladoresCancion.NuevoControladorAlmacenamientoCanciones()
+
+	// Ruta para almacenar canciones
+	http.HandleFunc("/canciones/almacenamiento", ctrl.AlmacenarCancion)
+	fmt.Println("✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅")
+	fmt.Println("bienvenido al microservicio de Tendencias")
+	fmt.Println("Microservicio de Tendencias escuchando en el puerto 5000...")
+	if err := http.ListenAndServe(":5000", nil); err != nil {
+		fmt.Println("Error iniciando el servidor:", err)
+	}
+}

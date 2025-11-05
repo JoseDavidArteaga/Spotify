@@ -11,7 +11,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 public class MessageConsumer {
     @RabbitListener(queues = "notificaciones_canciones")
     public void recibirMensaje(CancionAlmacenarDTOInput objClienteCreado) {
-        // Lógica para procesar el mensaje recibido
         System.out.println("Datos de la canción recibidos");
         System.out.println("Enviando correo electrónico...");
         Simulacion.simular(10000,"Enviando correo...");
@@ -19,7 +18,7 @@ public class MessageConsumer {
         System.out.println("Título: " + objClienteCreado.getTitulo());
         System.out.println("Artista: " + objClienteCreado.getArtista());
         System.out.println("Género: " + objClienteCreado.getGenero());
-        System.out.println("-------------------------------------");
+        System.out.println("===================================================");
     }
 }
     
