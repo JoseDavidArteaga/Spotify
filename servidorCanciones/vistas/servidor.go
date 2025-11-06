@@ -37,6 +37,8 @@ func iniciarSevidorREST() {
 
 	// Ruta para almacenar canciones
 	http.HandleFunc("/canciones/almacenamiento", ctrl.AlmacenarCancion)
+	// Ruta para listar canciones
+	http.HandleFunc("/canciones", capaControladoresCancion.ListarCancionesREST)
 	fmt.Println("✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅")
 	fmt.Println("bienvenido al microservicio de Tendencias")
 	fmt.Println("Microservicio de Tendencias escuchando en el puerto 5000...")

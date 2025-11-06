@@ -13,8 +13,6 @@ import (
 type Usuario struct {
 	Id       int
 	Nickname string
-	// La contraseña se almacena en claro solo para fines de práctica;
-	// en producción, debe ser un hash seguro.
 	Password string
 }
 

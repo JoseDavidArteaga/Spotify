@@ -37,12 +37,12 @@ func NewRabbitPublisher() (*RabbitPublisher, error) {
 	}
 
 	q, err := ch.QueueDeclare(
-		"notificaciones_canciones", // nombre de la cola
-		true,                       // durable
-		false,                      // autodelete
-		false,                      // exclusive
-		false,                      // no-wait
-		nil,                        // args
+		"cola_notificaciones", // nombre de la cola
+		true,                  // durable
+		false,                 // autodelete
+		false,                 // exclusive
+		false,                 // no-wait
+		nil,                   // args
 	)
 	if err != nil {
 		return nil, fmt.Errorf("error declarando cola: %v", err)

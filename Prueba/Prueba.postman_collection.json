@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "ad93f308-3235-4d90-a08e-b581c2f75ed9",
+		"name": "Pruebas Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43909544"
+	},
+	"item": [
+		{
+			"name": "Agregar Cancion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "titulo",
+							"value": "In the End",
+							"type": "text"
+						},
+						{
+							"key": "artista",
+							"value": "Linkin Park",
+							"type": "text"
+						},
+						{
+							"key": "genero",
+							"value": "Rock",
+							"type": "text"
+						},
+						{
+							"key": "idioma",
+							"value": "Ingles",
+							"type": "text"
+						},
+						{
+							"key": "archivo",
+							"type": "file",
+							"src": "/C:/Users/josed/Downloads/Segundo Corte Requerimiento/Spotify Pirata/servidorCanciones/vistas/Audios/In the End_Rock_Linkin Park.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/canciones/almacenamiento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"canciones",
+						"almacenamiento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Reproduccion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idUsuario\": 2,\r\n    \"titulo\": \"Nueva Cancion.mp3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5002/reproducciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"reproducciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener reproducciones por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5002/reproducciones?idUsuario=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"reproducciones"
+					],
+					"query": [
+						{
+							"key": "idUsuario",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Reproducciones",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5002/reproducciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"reproducciones"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

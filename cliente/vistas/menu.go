@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"strconv"
 	"strings"
@@ -17,6 +18,7 @@ import (
 )
 
 var reader = bufio.NewReader(os.Stdin)
+var usuarioActualID int // Variable global para almacenar el ID del usuario actual
 
 // / MostrarMenuPrincipal is the main entry point for the client's UI loop.
 func MostrarMenuPrincipal(
@@ -26,6 +28,7 @@ func MostrarMenuPrincipal(
 	nickname string,
 	idUsuario int,
 ) {
+	usuarioActualID = idUsuario // Guardar el ID del usuario en la variable global
 	fmt.Printf("\n¡Bienvenido, %s!\n", nickname)
 
 	for {
@@ -379,6 +382,9 @@ func reproducirCancion(clienteStreaming pbStream.AudioServiceClient, ctx context
 	audioReader.Close()
 	audioWriter.Close()
 
+	// Registrar la reproducción en el servidor de reproducciones
+	registrarReproduccion(cancion.Titulo)
+
 	presionarEnterParaContinuar()
 }
 
@@ -386,4 +392,33 @@ func reproducirCancion(clienteStreaming pbStream.AudioServiceClient, ctx context
 func presionarEnterParaContinuar() {
 	fmt.Print("\nPresione Enter para continuar...")
 	reader.ReadString('\n')
+}
+
+// registrarReproduccion envía una solicitud POST al servidor de reproducciones para registrar una nueva reproducción
+func registrarReproduccion(tituloCancion string) {
+	url := "http://localhost:5002/reproducciones"
+	
+	body := fmt.Sprintf(`{"idUsuario": %d, "titulo": "%s"}`, usuarioActualID, tituloCancion)
+	
+	req, err := http.NewRequest("POST", url, strings.NewReader(body))
+	if err != nil {
+		fmt.Printf("⚠️  No se pudo crear la solicitud para registrar reproducción: %v\n", err)
+		return
+	}
+	
+	req.Header.Set("Content-Type", "application/json")
+	
+	client := &http.Client{Timeout: 5 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Printf("⚠️  No se pudo conectar al servidor de reproducciones: %v\n", err)
+		return
+	}
+	defer resp.Body.Close()
+	
+	if resp.StatusCode == http.StatusOK || resp.StatusCode == http.StatusCreated {
+		fmt.Println("✅ Reproducción registrada correctamente")
+	} else {
+		fmt.Printf("⚠️  Error al registrar reproducción (código %d)\n", resp.StatusCode)
+	}
 }

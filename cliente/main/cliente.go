@@ -5,8 +5,8 @@ import (
 	"log"
 	"time"
 
-	pbStream "servidor.local/grpc-servidor/serviciosStreaming"    // CORRECTO
-	pbSong "servidor.local/grpc-servidorCancion/serviciosCancion" // CORRECTO
+	pbStream "servidor.local/grpc-servidor/serviciosStreaming"    //tengo error aqui
+	pbSong "servidor.local/grpc-servidorCancion/serviciosCancion" //tengo error aqui
 
 	util "cliente.local/grpc-cliente/utilidades"
 	menu "cliente.local/grpc-cliente/vistas"
